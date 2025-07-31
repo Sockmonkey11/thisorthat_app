@@ -1,0 +1,20 @@
+{%extends "polling_site/base.html"%}
+
+{%block content%}
+{% for poll in polls %}
+    <div class="poll">
+        <h2>
+            <a href="{% url 'poll_detail' poll.id %}"> 
+            {{ poll.question }}
+            </a>
+        </h2>
+        <p>Created by {{ poll.author}}:</p>
+        <p>Created on: {{ poll.pub_date }}</p>
+        <button>{{ poll.option1}}</button>
+        <button>{{ poll.option2}}</button>
+    </div>
+{% empty %}
+    <p>No polls available at the moment.</p>
+{% endfor %}
+
+{% endblock %}
