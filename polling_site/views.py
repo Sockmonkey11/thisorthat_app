@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Polls
+from .models import Polls,Vote
 from .forms import PollForm
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -12,7 +12,24 @@ def home(request):
 
 def poll_detail(request, poll_id):
     poll = Polls.objects.get(id=poll_id)
-    return render(request, "polling_site/polling_detail.html", {"poll": poll})
+    has_voted = False
+    if request.user.is_authenticated:
+        has_voted = Vote.objects.filter(user=request.user, poll = poll).exists()
+    
+    if request.method == "POST" and not has_voted:
+        vote = request.POST.get("vote")
+        if vote == "option1":
+            poll.vote_count1 += 1
+        elif vote == "option2":
+            poll.vote_count2 += 1
+        poll.save()
+        if request.user.is_authenticated:
+            Vote.objects.create(user=request.user, poll=poll)
+        return redirect('poll_detail', poll_id=poll.id)
+    
+    if request.user.is_authenticated:
+     has_voted = Vote.objects.filter(user=request.user, poll=poll).exists()
+    return render(request, "polling_site/polling_detail.html", {"poll": poll ,"has_voted": has_voted})
 
 def create_poll(request):
     if request.method == "POST":

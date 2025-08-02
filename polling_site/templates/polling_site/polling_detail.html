@@ -5,7 +5,13 @@
     <h1>{{ poll.question }}</h1>
     <h2>Created by {{ poll.author }}:</h2>
     <p>Created on: {{ poll.pub_date }}</p>
-    <button>{{ poll.option1 }}</button>
-    <button>{{ poll.option2 }}</button>
+    <form method="post" action="{% url 'poll_detail' poll.id %}">
+        {% csrf_token %}
+        <button type="submit" name="vote" value="option1" class="btn btn-primary" {% if poll_id in has_voted %}disabled{%endif%}>{{ poll.option1 }}</button>
+        <button type="submit" name="vote" value="option2" class="btn btn-secondary" {% if poll_id in has_voted %}disabled{%endif%}>{{ poll.option2 }}</button>
+    </form>
+    <p>Votes for {{ poll.option1 }}: {{ poll.vote_count1 }}</p>
+    <p>Votes for {{ poll.option2 }}: {{ poll.vote_count2 }}</p>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Polls</a>
 </div>
 {% endblock%}
