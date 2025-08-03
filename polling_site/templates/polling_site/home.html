@@ -1,6 +1,30 @@
 {%extends "polling_site/base.html"%}
 
+
 {%block content%}
+ <button>
+    <a href="{% url 'create_poll' %}" >
+        <i class="bi bi-plus"></i> Create
+    </button>
+    </a>
+<h1>Available Polls</h1>
+
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+    </form>
+{% else %}
+    <a href="{% url 'login' %}" class="btn btn-primary">
+        <i class="bi bi-box-arrow-in-right"></i> Login
+    </a>
+    <a href="{% url 'register' %}" class="btn btn-secondary">
+        <i class="bi bi-person-plus"></i> Register
+    </a>
+{% endif %}
+
 {% for poll in polls %}
     <div class="poll">
         <h2>
