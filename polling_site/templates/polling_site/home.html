@@ -2,10 +2,16 @@
 
 
 {%block content%}
- <button>
+
+    <a href= "{% url "your_polls"%}">
+        <i class="bi bi-person"></i> Your Polls
+    </a>
+
     <a href="{% url 'create_poll' %}" >
-        <i class="bi bi-plus"></i> Create
-    </button>
+        <i class="bi bi-plus"></i> Create Poll
+    </a>
+    <a href = "{% url "subscribe"%}" class="btn btn-primary mb-3">
+        <i class="bi bi-bell"></i> Subscribe for To Change Votes
     </a>
 <h1>Available Polls</h1>
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 # Create your models here.
 class Polls(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -9,8 +10,6 @@ class Polls(models.Model):
     vote_count1 = models.IntegerField(default=0)
     option2 = models.CharField(max_length=200, default='Option 2')
     vote_count2 = models.IntegerField(default=0)
-
-   
 
     def __str__(self):
         return self.question
@@ -23,3 +22,7 @@ class Vote(models.Model):
     
     def __str__(self):
         return f"{self.user.username} voted on {self.poll.question}"
+
+class UserProfile(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    is_subscribed = models.BooleanField(default=False)

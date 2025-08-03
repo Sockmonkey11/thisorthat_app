@@ -1,3 +1,4 @@
+import os
 """
 Django settings for polling_app project.
 
@@ -26,6 +27,10 @@ SECRET_KEY = 'django-insecure-+ptve0yd32ii$$=wiyiu8%p!c4kppp)4e#t4g6@&ad=g6347&@
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 
 
 # Application definition

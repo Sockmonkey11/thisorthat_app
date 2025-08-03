@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Polls,Vote
+from .models import Polls,Vote,UserProfile
 from .forms import PollForm
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -67,3 +67,18 @@ def delete_poll(request, poll_id):
         return redirect('home')
     else:
         return render(request, 'polling_site/error.html', {'message': 'You are not authorized to delete this poll.'})
+
+@login_required
+def your_polls(request):
+    polls = Polls.objects.filter(author=request.user)
+    return render(request, 'polling_site/your_polls.html', {'polls': polls})
+
+@login_required
+def subscribe(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    if not user_profile.is_subscribed:
+        user_profile.is_subscribed = True
+        user_profile.save()
+        return redirect('home')
+    else:
+        return render(request, 'subscription/sub.html', {'message': 'You are already subscribed.'})
