@@ -1,4 +1,6 @@
 import os
+import dj_database_url
+
 """
 Django settings for polling_app project.
 
@@ -26,7 +28,7 @@ SECRET_KEY = 'django-insecure-+ptve0yd32ii$$=wiyiu8%p!c4kppp)4e#t4g6@&ad=g6347&@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["thisorthat-app.onrender.com"]
+ALLOWED_HOSTS = ["thisorthat-app.onrender.com", "127.0.0.1"]
 
 
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
@@ -81,11 +83,19 @@ WSGI_APPLICATION = 'polling_app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+import dj_database_url
+from dj_database_url import parse as dj_database_url_parse
 
-DATABASES = {
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ['DATABASE_URL'])
+    }
+else:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',    
     }
 }
 

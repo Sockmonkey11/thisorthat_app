@@ -9,4 +9,6 @@ stripe==12.4.0
 typing_extensions==4.14.1
 urllib3==2.5.0
 Django>=4.0
+dj-database-url
+psycopg2-binary
 gunicorn
