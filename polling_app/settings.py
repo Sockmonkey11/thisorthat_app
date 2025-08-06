@@ -1,5 +1,8 @@
 import os
 import dj_database_url
+from decouple import config
+
+
 
 """
 Django settings for polling_app project.
@@ -31,8 +34,8 @@ DEBUG = True
 ALLOWED_HOSTS = ["thisorthat-app.onrender.com", "127.0.0.1"]
 
 
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
-STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
 
 
 # Application definition

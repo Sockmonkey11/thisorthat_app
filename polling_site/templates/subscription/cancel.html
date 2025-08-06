@@ -1,0 +1,9 @@
+{%extends "polling_site//base.html"%}
+
+{%block content%}
+<h1>Cancel Subscription</h1>
+<p>Your subscription has been successfully canceled. You will no be able to change your vote.</p>
+<a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+{%endblock%}
+
+{% block title %}Cancel Subscription - This or That?{% endblock %}

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+# from .views import CreateStripeCheckoutSessionView
 
 urlpatterns = [
     path("", views.home, name="home"),
@@ -9,6 +10,15 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("your_polls/", views.your_polls, name="your_polls"),
     path("subscribe/", views.subscribe, name="subscribe"),
+    path("checkout/", views.checkout, name="checkout"),
+    path("success/", views.success, name="success"),
+    path("cancel/", views.cancel, name="cancel"),
+    #  path(
+    #     "create-checkout-session/<int:pk>/",
+    #     CreateStripeCheckoutSessionView.as_view(),
+    #     name="create-checkout-session",
+    # ),
+    
 ]
 
 

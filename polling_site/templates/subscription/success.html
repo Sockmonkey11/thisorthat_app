@@ -1,0 +1,14 @@
+{%extends "polling_site//base.html"%}
+
+{%block content%}
+<h1>Subscription Successful</h1>
+<p>Thank you for subscribing! You can now change your vote on any poll at any time.</p>
+<a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+{%endblock%}
+
+{% block title %}Subscription Success - This or That?{% endblock %}
+{% block script %}
+<script>
+    console.log("Subscription success page loaded.");
+</script>
+{% endblock %}

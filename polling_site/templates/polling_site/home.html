@@ -2,6 +2,11 @@
 
 
 {%block content%}
+    {%if is_subscribed%}
+    <script>
+        console.log("User is subscribed to change votes.");
+    </script>
+    {%endif%}
 
     <a href= "{% url "your_polls"%}">
         <i class="bi bi-person"></i> Your Polls
@@ -10,9 +15,12 @@
     <a href="{% url 'create_poll' %}" >
         <i class="bi bi-plus"></i> Create Poll
     </a>
+    {% if user.is_authenticated%}
     <a href = "{% url "subscribe"%}" class="btn btn-primary mb-3">
         <i class="bi bi-bell"></i> Subscribe for To Change Votes
     </a>
+    {%endif%}
+    
 <h1>Available Polls</h1>
 
 {% if user.is_authenticated %}

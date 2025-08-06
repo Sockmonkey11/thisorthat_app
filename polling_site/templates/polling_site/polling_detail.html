@@ -7,9 +7,21 @@
     <p>Created on: {{ poll.pub_date }}</p>
     <form method="post" action="{% url 'poll_detail' poll.id %}">
         {% csrf_token %}
+        {% if is_subscribed%}
         <button type="submit" name="vote" value="option1" class="btn btn-primary" {% if poll_id in has_voted %}disabled{%endif%}>{{ poll.option1 }}</button>
         <button type="submit" name="vote" value="option2" class="btn btn-secondary" {% if poll_id in has_voted %}disabled{%endif%}>{{ poll.option2 }}</button>
+        {% else %}
+        <button type="submit" name="vote" value="option1" class="btn btn-primary" {% if poll_id in has_voted %}disabled{%endif%}>{{ poll.option1 }}</button>
+        <button type="submit" name="vote" value="option2" class="btn btn-secondary" {% if poll_id in has_voted %}disabled{%endif%}>{{ poll.option2 }}</button>
+        {% endif %}
     </form>
+    
+    {% if is_subscribed %}
+        <p class="text-success">You can change your vote!</p>
+    {% else %}
+        <p class="text-danger">Subscribe to change your vote.</p>
+        <a href="{% url 'subscribe' %}" class="btn btn-primary">Subscribe Now</a>
+    {% endif %}
     <p>Votes for {{ poll.option1 }}: {{ poll.vote_count1 }}</p>
     <p>Votes for {{ poll.option2 }}: {{ poll.vote_count2 }}</p>
     {% if user.is_authenticated and user == poll.author %}
